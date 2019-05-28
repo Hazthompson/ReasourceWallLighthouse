@@ -5,7 +5,8 @@ This project provides a pinboard for learning resrouces. You can view and search
 ## Getting Started
 
 1. Install dependencies listed below.
-2. Fix to binaries for sass: `npm rebuild node-sass`
+2. Fix to binaries for sass: `npm rebuild node-sass` (run gulp file to update so that all files in specific folder with .scss look to the chosen .css file).
+3.create env file
 3. Run 'clean_db.sh' to create DB, run lastest migration and run the seed.
 7. Run the server: `npm run local`
 8. Visit `http://localhost:8080/`
