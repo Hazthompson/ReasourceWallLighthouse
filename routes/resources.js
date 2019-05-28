@@ -70,9 +70,9 @@ module.exports = (knex) => {
       });
   });
 
+  //initil search non-capitalized
   // router.get('/search/:term', (req,res) => {
   //   var searchTerm = req.params.term;
-  //   console.log("Jack 2 ", searchTerm);
   //   knex('resources').where(function() {
   //     this.where('title', 'like', `%${searchTerm}%`);
   //   }).orWhere('description', 'like',`%${searchTerm}%`)
