@@ -48,22 +48,13 @@ module.exports = (knex) => {
       });
   });
 
-  // router.get('/wall/:id', (req, res) => {
-  //   knex
-  //     .select('*')
-  //     .from('resources')
-  //     .then((results) => {
-  //       res.json(results);
-  //     });
-  // });
-
   router.get('/search/:term', (req,res) => {
     var searchTerm = req.params.term;
     console.log("Jack 2 ", searchTerm);
     knex('resources').where(function() {
       this.whereRaw(`LOWER(title) LIKE ?`, [`%${searchTerm}%`]);
     })  .orWhereRaw(`LOWER(description) LIKE ?`, [`%${searchTerm}%`])
-        .orWhereRaw(`LOWER(category) LIKE ?`, [`%${searchTerm}%`])
+      .orWhereRaw(`LOWER(category) LIKE ?`, [`%${searchTerm}%`])
       .select('*')
       .then((results) => {
         res.json(results);
@@ -90,43 +81,43 @@ module.exports = (knex) => {
     id = parseInt(id);
     console.log('id passed in is', id);
     let commentPromise = knex('comments')//START OF COMMENT QUARY
-    .select('comment','created_at','user_id')
-    .where('resource_id',id); // END OF COMMENT GETTING QUARY
+      .select('comment','created_at','user_id')
+      .where('resource_id',id); // END OF COMMENT GETTING QUARY
 
     let likesPromise = knex('likes') // START OF LIKES QUARY
-    .count('id')
-    .where('resource_id',id); // END OF LIKES QUARY
+      .count('id')
+      .where('resource_id',id); // END OF LIKES QUARY
 
     let personalLikePromise = knex('likes')
-    .select('user_id')
-    .where('resource_id',id);
+      .select('user_id')
+      .where('resource_id',id);
 
     let personalRankPromise = knex('rank')
-    .select('user_id','rank_value')
-    .where('resource_id',id);
+      .select('user_id','rank_value')
+      .where('resource_id',id);
 
     let rankPromise = knex('rank') //START OF RANKS QUARY
-    .avg('rank_value')
-    .where('resource_id',id); //END OF RANKS QUARY
+      .avg('rank_value')
+      .where('resource_id',id); //END OF RANKS QUARY
 
     let resourcePromise = knex
       .select("*")
       .from("resources")
       .where("id", id);
 
-      Promise.all([commentPromise,likesPromise,rankPromise,resourcePromise,personalLikePromise,personalRankPromise]).then((promiseResults) => {
-        const [comments,likes,ranks,resourceProperties,personalLike,personalRank] = promiseResults;
-        res.json({
-          comments,
-          likes,
-          ranks,
-          resourceProperties,
-          personalLike,
-          personalRank
-        })
-      }).catch((err) => {
-        console.log(err);
-      })
+    Promise.all([commentPromise,likesPromise,rankPromise,resourcePromise,personalLikePromise,personalRankPromise]).then((promiseResults) => {
+      const [comments,likes,ranks,resourceProperties,personalLike,personalRank] = promiseResults;
+      res.json({
+        comments,
+        likes,
+        ranks,
+        resourceProperties,
+        personalLike,
+        personalRank
+      });
+    }).catch((err) => {
+      console.log(err);
+    });
   });
 
   router.get("/:id/favorites", (req, res) => {
@@ -145,10 +136,6 @@ module.exports = (knex) => {
   });
 
   router.post('/:id/rank', (req, res) => {
-    //const current_user = req.session.user_id;
-    // console.log(req.body.user_id);
-    // console.log(req.params.id);
-    // console.log(req.body.rank_value);
     var id = req.params.id;
     id = parseInt(id);
     knex('rank').insert(
@@ -157,38 +144,38 @@ module.exports = (knex) => {
         resource_id: req.params.id,
         rank_value: parseInt(req.body.rank_value)
       }).then((result) => {
-        res.json( result );
+      res.json( result );
+    });
+  });
+
+  //   router.post('/login', (req,res) => {
+  //     // console.log('i am inside posting');
+  //     // console.log(req.body);  
+  //     console.log(req.session);
+  //     req.session.user_id = req.body.user_id;
+  //     console.log('this is my cookie' + req.session.user_id);
+  //     res.redirect('/'); // TODO: change this to root page later
+  // })
+
+  router.get('/', (req, res) => {
+    knex
+      .select('*')
+      .from('resources')
+      .then((results) => {
+        res.json(results);
       });
   });
 
-//   router.post('/login', (req,res) => {
-//     // console.log('i am inside posting');
-//     // console.log(req.body);  
-//     console.log(req.session);
-//     req.session.user_id = req.body.user_id;
-//     console.log('this is my cookie' + req.session.user_id);
-//     res.redirect('/'); // TODO: change this to root page later
-// })
-
-router.get('/', (req, res) => {
-    knex
-        .select('*')
-        .from('resources')
-        .then((results) => {
-            res.json(results);
-        });
-});
-
-router.post('/:id/like', (req, res) => {
+  router.post('/:id/like', (req, res) => {
     knex('likes').insert(
-        {user_id : req.body.user_id, resource_id : req.params.id})
-        .catch(err => console.log(err));
-});
+      {user_id : req.body.user_id, resource_id : req.params.id})
+      .catch(err => console.log(err));
+  });
 
-router.post('/:id/like/delete', (req, res) => {
+  router.post('/:id/like/delete', (req, res) => {
     console.log('inside the delete route');
     knex('likes').where('user_id', req.body.user_id).del();
-});
+  });
 
 
   return router;
