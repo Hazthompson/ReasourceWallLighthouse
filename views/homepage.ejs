@@ -3,8 +3,6 @@
   <head>
     <title>Home Page</title>
 
-    <%# Required meta tags %>
-
     <%# Required Bootstrap %>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -25,8 +23,6 @@
   <body>
   <% include partials/_header %> 
 
-
-
   <div class="container h-100">
       <div class="d-flex justify-content-center h-100">
         <div class="searchbar">
@@ -38,52 +34,48 @@
  <label class="no-entry">Please enter search item</label>
   <main class="container">
 
-      <section class="new-url">
-        <form method="POST" action="/">
-          <div class="row mb-1">
-            <div class="col-sm">
-              <h2>Add new resource:</h2>
-            </div>
+    <section class="new-url">
+      <form method="POST" action="/">
+        <div class="row mb-1">
+          <div class="col-sm">
+            <h2>Add new resource:</h2>
           </div>
-          <div class="row">
-            <div class="col-sm">
-              <input type=text placeholder="Add URL..." required="required" class="url-area form-control" name="url" />
-            </div>
-            <div class="col-sm">
-              <input placeholder="Title..." required="required" class="title-area form-control" name="title" />            
-            </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            <input type=text placeholder="Add URL..." required="required" class="url-area form-control" name="url" />
           </div>
-          <div class="row mt-2">
-            <div class="col-sm">
-              <input placeholder="Description..." required="required" class="descr-area form-control" name="description" />
-            </div>
-            <div class="col-sm">
-              <input placeholder="Category..." required="required" class="cat-area form-control" name="category" />
-            </div>
-            <div class="col-sm">
-              <input placeholder="Image URL..." class="img-area form-control" name="url" />            
-            </div>
+        <div class="col-sm">
+          <input placeholder="Title..." required="required" class="title-area form-control" name="title" />            
+        </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-sm">
+            <input placeholder="Description..." required="required" class="descr-area form-control" name="description" />
           </div>
+          <div class="col-sm">
+            <input placeholder="Category..." required="required" class="cat-area form-control" name="category" />
+          </div>
+          <div class="col-sm">
+            <input placeholder="Image URL..." class="img-area form-control" name="url" />            
+          </div>
+        </div>
           <input type="submit" value="Add" class="add-resource btn btn-info mt-2 float-right"/>
         </form>
       </section>
 
-  
-
       <section class="existing-resource grid">
-     
       </section>
+
     </main>
 
 
 <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-
-
-
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 <script type="text/javascript" src="/scripts/app.js"></script>
 
   </body>
